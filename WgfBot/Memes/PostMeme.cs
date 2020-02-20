@@ -33,7 +33,7 @@ namespace WgfBot
 
             var freshlyHandpickedMeme = freshMemes.First();
 
-            //await BlacklistNewMeme(freshlyHandpickedMeme, table);
+            await BlacklistNewMeme(freshlyHandpickedMeme, table);
             await Slack.BroadcastImage(Slack.MemesChannel, $"https://i.redd.it/{freshlyHandpickedMeme}");
         }
 
