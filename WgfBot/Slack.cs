@@ -31,7 +31,7 @@ namespace WgfBot
         {
             var token = Environment.GetEnvironmentVariable("BOT_TOKEN");
 
-            var attachmentString = JsonConvert.SerializeObject(new List<Attachment> { new Attachment { image_url = image } });
+            var attachmentString = JsonConvert.SerializeObject(new List<Attachment> { new Attachment { image_url = image, fallback = "meme"} });
 
             var payload = new List<KeyValuePair<string, string>>
             {
@@ -47,6 +47,7 @@ namespace WgfBot
     }
 
     public class Attachment {
+        public string fallback { get; set; }
         public string image_url { get; set; }
     }
 }
