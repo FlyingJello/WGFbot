@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace WgfBot
 {
@@ -25,5 +26,27 @@ namespace WgfBot
             var request = new HttpRequestMessage(HttpMethod.Post, "https://slack.com/api/chat.postMessage") { Content = new FormUrlEncodedContent(payload) };
             await httpClient.SendAsync(request);
         }
+
+        public static async Task BroadcastImage(string channel, string image)
+        {
+            var token = Environment.GetEnvironmentVariable("BOT_TOKEN");
+
+            var attachmentString = JsonConvert.SerializeObject(new List<Attachment> { new Attachment { image_url = image } });
+
+            var payload = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("token", token),
+                new KeyValuePair<string, string>("channel", channel),
+                new KeyValuePair<string, string>("attachments", attachmentString)
+            };
+
+            using var httpClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://slack.com/api/chat.postMessage") { Content = new FormUrlEncodedContent(payload) };
+            await httpClient.SendAsync(request);
+        }
+    }
+
+    public class Attachment {
+        public string image_url { get; set; }
     }
 }

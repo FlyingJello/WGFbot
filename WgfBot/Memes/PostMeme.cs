@@ -34,7 +34,7 @@ namespace WgfBot
             var freshlyHandpickedMeme = freshMemes.First();
 
             await BlacklistNewMeme(freshlyHandpickedMeme, table);
-            await Slack.BroadcastMessage(Slack.MemesChannel, $"https://i.redd.it/{freshlyHandpickedMeme}");
+            await Slack.BroadcastImage(Slack.MemesChannel, $"https://i.redd.it/{freshlyHandpickedMeme}");
         }
 
         public static List<string> FilterFreshMemes(List<string> memes, CloudTable table)
